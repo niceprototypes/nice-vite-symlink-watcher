@@ -1,5 +1,5 @@
 {
-  "name": "vite-plugin-symlink-watcher",
+  "name": "nice-vite-symlink-watcher",
   "version": "0.1.0",
   "description": "Vite plugin for hot-reloading symlinked npm packages. Watches dist folders and triggers browser reload when linked packages rebuild.",
   "type": "module",
