@@ -1,0 +1,56 @@
+{
+  "name": "vite-plugin-symlink-watcher",
+  "version": "0.1.0",
+  "description": "Vite plugin for hot-reloading symlinked npm packages. Watches dist folders and triggers browser reload when linked packages rebuild.",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs,esm --dts --clean",
+    "dev": "tsup src/index.ts --format cjs,esm --dts --watch",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "vite",
+    "vite-plugin",
+    "hmr",
+    "hot-reload",
+    "symlink",
+    "npm-link",
+    "linked-packages",
+    "monorepo",
+    "local-dependencies",
+    "watch",
+    "development"
+  ],
+  "author": "",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/niceprototypes/nice-vite-symlink-watcher"
+  },
+  "bugs": {
+    "url": "https://github.com/niceprototypes/nice-vite-symlink-watcher/issues"
+  },
+  "homepage": "https://github.com/niceprototypes/nice-vite-symlink-watcher#readme",
+  "peerDependencies": {
+    "vite": ">=4.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.1",
+    "tsup": "^8.0.0",
+    "typescript": "^5.0.0",
+    "vite": "^5.0.0"
+  }
+}
