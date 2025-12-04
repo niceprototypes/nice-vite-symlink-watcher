@@ -125,8 +125,17 @@ interface SymlinkWatcherOptions {
 
   /**
    * Whether to log when changes are detected (default: false)
+   * Logs include the number of file changes batched and modules invalidated:
+   * [symlink-watcher] my-package changed (12 files), invalidated 3 modules
    */
   verbose?: boolean
+
+  /**
+   * Debounce delay in milliseconds (default: 300)
+   * Batches rapid file changes into a single reload to prevent reload storms
+   * during builds that output multiple files.
+   */
+  debounce?: number
 }
 ```
 
@@ -147,11 +156,12 @@ const aliases = getSourceAliases(
 
 1. **Registration**: On server start, adds each package's `dist` folder to Vite's file watcher
 2. **Detection**: When a file changes in a watched dist folder, identifies which package changed
-3. **Invalidation**: Clears affected modules from Vite's module graph cache
-4. **Reload**: Sends a full-reload signal to the browser
+3. **Debouncing**: Batches rapid file changes (common during builds) into a single reload event
+4. **Invalidation**: Clears affected modules from Vite's module graph cache
+5. **Reload**: Sends a full-reload signal to the browser
 
 ```
-Developer edits source → Package build runs → dist/ updates → Plugin detects → Browser reloads
+Developer edits source → Package build runs → dist/ updates → Plugin debounces → Browser reloads once
 ```
 
 ## Use Cases
